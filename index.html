@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<title>Anime - Cat api</title>
+	</head>
+	<script>
+		const getData = async (animal) => {
+			if (animal === "cat") {
+				const response = await fetch("https://thatcopy.pw/catapi/rest/", {
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "*",
+					},
+				});
+				const data = await response.json();
+				const elementImage = document.getElementById("image");
+				const elementQuote = document.getElementById("quote");
+				elementImage.style.display = "block";
+				elementQuote.style.display = "none";
+				elementImage.setAttribute("src", data.url);
+			} else {
+				const response = await fetch(
+					"https://animechan.vercel.app/api/random",
+					{
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+							"Access-Control-Allow-Origin": "*",
+						},
+					}
+				);
+				const data = await response.json();
+				const elementQuote = document.getElementById("quote");
+				const elementImage = document.getElementById("image");
+				elementImage.style.display = "none";
+				elementQuote.style.display = "block";
+				elementQuote.innerText = data.quote;
+			}
+		};
+	</script>
+
+	<body>
+		<div class="background">
+			<div class="actions">
+				<button onclick="getData('anime')" class="btn" type="button">
+					get me a Quote
+				</button>
+				<button onclick="getData('cat')" class="btn" type="button">
+					get me a Caaaaat
+				</button>
+			</div>
+			<div class="show">
+				<img id="image" src="" alt="" />
+				<p id="quote"></p>
+			</div>
+		</div>
+	</body>
+</html>
